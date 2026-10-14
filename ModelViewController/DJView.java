@@ -30,7 +30,7 @@ public class DJView implements ActionListener, BeatObserver, BPMObserver{
         //TODO
     }
 
-    public void updateBPTM() {
+    public void updateBPM() {
         int bpm = model.getBPM();
         if(bpm == 0) {
             bpmOutputLabel.setText("offline");
