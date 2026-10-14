@@ -49,7 +49,8 @@ public class DJView implements ActionListener, BeatObserver, BPMObserver {
     }
 
     public void updateBeat() {
-        beatBar.setValue(100);
+        // Called from the MIDI thread, so hand the update to the Swing thread
+        SwingUtilities.invokeLater(() -> beatBar.setValue(100));
     }
 
     public void createControls() {
@@ -88,7 +89,7 @@ public class DJView implements ActionListener, BeatObserver, BPMObserver {
         bpmTextField = new JTextField(2);
         bpmLabel = new JLabel("Enter BPM:", SwingConstants.RIGHT);
         setBPMButton = new JButton("Set");
-        //setBPMButton.setSize(new Dimension(10,40));
+        setBPMButton.setSize(new Dimension(10,40));
         increaseBPMButton = new JButton(">>");
         decreaseBPMButton = new JButton("<<");
         setBPMButton.addActionListener(this);

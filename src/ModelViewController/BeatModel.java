@@ -14,8 +14,6 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
     void setUpMidi() {
         try {
             sequencer = MidiSystem.getSequencer();
-            Synthesizer synth = MidiSystem.getSynthesizer();
-            System.out.println("Default Soundbank: " + synth.getDefaultSoundbank());
             sequencer.open();
             sequencer.addMetaEventListener(this);
             sequence = new Sequence(Sequence.PPQ, 4);
@@ -34,7 +32,6 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
         track.add(makeEvent(192,9,1,0,4));
         try {
             sequencer.setSequence(sequence);
-            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY); // Loop automatically
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -70,14 +67,13 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 
     @Override
     public void on() {
-        sequencer.setMicrosecondPosition(0);
         sequencer.start();
-        setBPM(bpm);
+        setBPM(90);
     }
 
     @Override
     public void off() {
-        //setBPM(0);
+        setBPM(0);
         sequencer.stop();
     }
 
@@ -124,21 +120,22 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
     public void meta(MetaMessage message) {
         if (message.getType() == 47) {
             beatEvent();
-            sequencer.setMicrosecondPosition(0);
+            sequencer.setMicrosecondPosition(0); // rewind, or start() stays at the end of the track
             sequencer.start();
+            setBPM(getBPM());
         }
     }
 
     public void notifyBeatObservers() {
         for(int i = 0; i < beatObservers.size(); i++) {
-            BeatObserver observer = beatObservers.get(i);
+            BeatObserver observer = (BeatObserver)beatObservers.get(i);
             observer.updateBeat();
         }
     }
 
     public void notifyBPMObservers() {
         for(int i = 0; i < bpmObservers.size(); i++) {
-            BPMObserver observer = bpmObservers.get(i);
+            BPMObserver observer = (BPMObserver)bpmObservers.get(i);
             observer.updateBPM();
         }
     }

@@ -23,9 +23,14 @@ public class StereoOnWithCDCommand implements Command {
     public void undo() {
         stereo.setVolume(prevVolume);
         switch (prevType) {
-            case Stereo.MediaType.DVD -> stereo.setDvd();
-            case Stereo.MediaType.CD -> stereo.setCd();
-            case Stereo.MediaType.RADIO -> stereo.setRadio();
+            case DVD:
+                stereo.setDvd();
+                break;
+            case CD:
+                stereo.setCd();
+                break;
+            case RADIO:
+                stereo.setRadio();
         }
         if (prevIsOn) {
             stereo.on();

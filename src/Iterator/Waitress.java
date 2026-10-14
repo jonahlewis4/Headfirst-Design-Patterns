@@ -23,7 +23,9 @@ public class Waitress {
                 if (menuComponent.isVegetarian()) {
                     menuComponent.print();
                 }
-            } catch (UnsupportedOperationException _) {}
+            } catch (UnsupportedOperationException e) {
+                e.printStackTrace();
+            }
         }
     }
 // other methods here

@@ -32,7 +32,7 @@ public class HeatIndexDisplay implements DisplayElement, Flow.Subscriber<Weather
 
     @Override
     public void onNext(WeatherMeasureMent data) {
-        heatIndex = computeHeatIndex(data.temperature(), data.humidity());
+        heatIndex = computeHeatIndex(data.temperature, data.humidity);
         display();
         this.subscription.request(1);
     }

@@ -1,4 +1,6 @@
 
+import State.State;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

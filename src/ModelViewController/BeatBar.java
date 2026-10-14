@@ -3,35 +3,17 @@ package ModelViewController;
 import javax.swing.*;
 import java.awt.*;
 
-public class BeatBar extends JProgressBar implements Runnable {
-    Thread thread;
+public class BeatBar extends JProgressBar {
+    Timer timer;
 
     public BeatBar() {
         super();
         setPreferredSize(new Dimension(150, 25));
-        setStringPainted(true);
-        thread = new Thread(this);
         setMaximum(100);
-        thread.start();
-    }
 
-    public void run() {
-        while (true) {
-            int value = getValue();
-            value = (int)(value * .75);
-
-            // Use SwingUtilities to safely update GUI components from a background thread
-            int finalValue = value;
-            SwingUtilities.invokeLater(() -> {
-                setValue(finalValue);
-                repaint();
-            });
-
-            try {
-                Thread.sleep(50);
-            } catch (Exception e) {
-                // Ignore interruption
-            }
-        }
+        // Swing Timer fires on the event dispatch thread, so decaying the
+        // value can't race with updateBeat() setting it to 100
+        timer = new Timer(50, e -> setValue((int)(getValue() * .75)));
+        timer.start();
     }
 }
