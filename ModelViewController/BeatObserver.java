@@ -1,2 +1,2 @@
-public class BeatObserver {
+public interface BeatObserver {
 }
