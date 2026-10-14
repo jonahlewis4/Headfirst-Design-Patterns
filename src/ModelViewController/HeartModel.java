@@ -49,7 +49,7 @@ public class HeartModel implements HeartModelInterface, Runnable {
     }
     public void notifyBeatObservers() {
         for(int i = 0; i < beatObservers.size(); i++) {
-            BeatObserver observer = (BeatObserver)beatObservers.get(i);
+            BeatObserver observer = beatObservers.get(i);
             observer.updateBeat();
         }
     }
@@ -64,7 +64,7 @@ public class HeartModel implements HeartModelInterface, Runnable {
     }
     public void notifyBPMObservers() {
         for(int i = 0; i < bpmObservers.size(); i++) {
-            BPMObserver observer = (BPMObserver)bpmObservers.get(i);
+            BPMObserver observer = bpmObservers.get(i);
             observer.updateBPM();
         }
     }
