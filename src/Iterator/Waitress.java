@@ -23,8 +23,8 @@ public class Waitress {
                 if (menuComponent.isVegetarian()) {
                     menuComponent.print();
                 }
-            } catch (UnsupportedOperationException e) {
-                e.printStackTrace();
+            } catch (UnsupportedOperationException ignored) {
+                // Menus aren't vegetarian; skip them
             }
         }
     }

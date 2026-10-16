@@ -53,7 +53,7 @@ public class Stereo {
     }
 
     public boolean getIsOn() {
-        return false;
+        return isOn;
     }
 
 }

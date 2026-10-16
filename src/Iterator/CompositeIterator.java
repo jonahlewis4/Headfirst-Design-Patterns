@@ -30,8 +30,8 @@ public class CompositeIterator implements Iterator<MenuComponent> {
         if (hasNext()) {
             Iterator<MenuComponent> itr = stack.peek();
             MenuComponent component = itr.next();
-            if(component instanceof Menu) {
-                stack.push(component.createIterator());
+            if(component instanceof Menu menu) {
+                stack.push(menu.menuComponents.iterator());
             }
             return component;
         } else {

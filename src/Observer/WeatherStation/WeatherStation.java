@@ -1,3 +1,6 @@
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
+
 public class WeatherStation {
     public static void main(String[] args) {
         WeatherData weatherData = new WeatherData();
@@ -10,9 +13,8 @@ public class WeatherStation {
         weatherData.setMeasurements(82, 70, 29.2f);
         weatherData.setMeasurements(78, 90, 29.2f);
 
-        while (weatherData.estimateMaximumLag() > 0) {
-            //wait until every message has been sent
-            Thread.onSpinWait();
-        }
+        weatherData.close();
+        // subscribers run on the common pool; wait until every message has been delivered
+        ForkJoinPool.commonPool().awaitQuiescence(5, TimeUnit.SECONDS);
     }
 }

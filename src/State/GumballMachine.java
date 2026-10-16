@@ -13,7 +13,7 @@ public class GumballMachine extends UnicastRemoteObject implements GumballMachin
     State winnerState;
     String location;
 
-    State state = soldOutState;
+    State state;
     int count = 0;
 
     public GumballMachine(String location, int numberGumballs) throws RemoteException {
@@ -23,9 +23,7 @@ public class GumballMachine extends UnicastRemoteObject implements GumballMachin
         hasQuarterState = new HasQuarterState(this);
         soldState = new SoldState(this);
         winnerState = new WinnerState(this);
-        if(numberGumballs > 0) {
-            state = noQuarterState;
-        }
+        state = numberGumballs > 0 ? noQuarterState : soldOutState;
         this.location = location;
     }
 

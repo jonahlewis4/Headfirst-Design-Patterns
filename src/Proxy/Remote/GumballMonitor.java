@@ -1,3 +1,4 @@
+import State.GumballMachineRemote;
 
 import java.rmi.RemoteException;
 

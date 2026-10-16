@@ -1,3 +1,4 @@
+import State.GumballMachineRemote;
 
 import java.rmi.Naming;
 
@@ -17,7 +18,9 @@ public class GumballMonitorTestDriveClient {
             }
         }
         for(int i=0; i < monitor.length; i++) {
-            monitor[i].report();
+            if (monitor[i] != null) {
+                monitor[i].report();
+            }
         }
 }
 }

@@ -7,7 +7,6 @@ public class Menu extends MenuComponent {
     ArrayList<MenuComponent> menuComponents = new ArrayList<>();
     String name;
     String description;
-    Iterator<MenuComponent> iterator = null;
     public Menu(String name, String description) {
         this.name = name;
         this.description = description;
@@ -37,9 +36,6 @@ public class Menu extends MenuComponent {
     }
 
     public Iterator<MenuComponent> createIterator() {
-        if(iterator == null) {
-            iterator = new CompositeIterator(menuComponents.iterator());
-        }
-        return iterator;
+        return new CompositeIterator(menuComponents.iterator());
     }
 }
